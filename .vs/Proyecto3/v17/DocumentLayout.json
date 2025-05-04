@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\HashTable.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|solutionrelative:Proyecto3\\HashTable.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|solutionrelative:Proyecto3\\Main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\HashTable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|solutionrelative:Proyecto3\\HashTable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\boolean.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3EC66B6-3045-4B31-B6C6-833F18D56942}|Proyecto3\\Proyecto3.vcxproj|solutionrelative:Proyecto3\\boolean.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "boolean.h",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\boolean.h",
+              "RelativeDocumentMoniker": "Proyecto3\\boolean.h",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\boolean.h",
+              "RelativeToolTip": "Proyecto3\\boolean.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-04T17:58:09.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HashTable.c",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\HashTable.c",
+              "RelativeDocumentMoniker": "Proyecto3\\HashTable.c",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\HashTable.c",
+              "RelativeToolTip": "Proyecto3\\HashTable.c",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAQwHwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-04T17:55:36.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HashTable.h",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\HashTable.h",
+              "RelativeDocumentMoniker": "Proyecto3\\HashTable.h",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\HashTable.h",
+              "RelativeToolTip": "Proyecto3\\HashTable.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-04T16:58:36.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Main.c",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\Main.c",
+              "RelativeDocumentMoniker": "Proyecto3\\Main.c",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\6to semestre\\AYED-2\\Proyecto3\\Proyecto3\\Proyecto3\\Main.c",
+              "RelativeToolTip": "Proyecto3\\Main.c",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-04T16:58:37.957Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
