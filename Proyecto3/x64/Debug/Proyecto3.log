@@ -1,2 +1,10 @@
 ﻿  HashTable.c
-  Proyecto3.vcxproj -> C:\data\edu\ed2\ed2-2025\Proyectos\Proyecto3\x64\Debug\Proyecto3.exe
+  Main.c
+  search.c
+C:\Users\acer\Desktop\6to semestre\AYED-2\Proyecto3\Proyecto3\Proyecto3\HashTable.c(49,15): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+  Generando código...
+C:\Users\acer\Desktop\6to semestre\AYED-2\Proyecto3\Proyecto3\Proyecto3\HashTable.c(184,4): warning C4013: 'printf' sin definir; se supone que extern devuelve como resultado int
+C:\Users\acer\Desktop\6to semestre\AYED-2\Proyecto3\Proyecto3\Proyecto3\Main.c(37,39): warning C4267: '+=': conversión de 'size_t' a 'long'; posible pérdida de datos
+C:\Users\acer\Desktop\6to semestre\AYED-2\Proyecto3\Proyecto3\Proyecto3\search.c(45,9): warning C4013: 'printContext' sin definir; se supone que extern devuelve como resultado int
+C:\Users\acer\Desktop\6to semestre\AYED-2\Proyecto3\Proyecto3\Proyecto3\search.c(95,16): warning C4090: 'función': calificadores 'const' diferentes
+  Proyecto3.vcxproj -> C:\Users\acer\Desktop\6to semestre\AYED-2\Proyecto3\Proyecto3\x64\Debug\Proyecto3.exe

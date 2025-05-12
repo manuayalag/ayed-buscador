@@ -1,40 +1,80 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
-#include "confirm.h"
+#include <ctype.h>
+
 #include "HashTable.h"
-/* Implementado una vez por programa para establecer como manejar errores */
-extern void GlobalReportarError(char* pszFile, int  iLine) {
+#include "PositionList.h"
+#include "StopWords.h"
+#include "search.h"
 
-	/* Siempre imprime el error */
-	fprintf(
-		stderr,
-		"\nERROR NO ESPERADO: en el archivo %s linea %u",
-		pszFile,
-		iLine
-	);
 
+// Indexa el archivo palabra por palabra, guardando posiciones
+void indexFile(HashTable table, const char* filename) {
+    FILE* f = fopen(filename, "r"); //abre archivo lectura
+    if (!f) {
+        perror("No se pudo abrir el archivo");
+        return;
+    }
+
+    char buffer[1024];
+    long position = 0;
+    int lineNumber = 1; // Número de línea
+
+    while (fgets(buffer, sizeof(buffer), f)) {
+        char* token = strtok(buffer, " \t\n\r");
+        while (token != NULL) {
+            cleanWord(token);  // Limpiar la palabra
+            if (strlen(token) > 3 && !isStopWord(token)) {
+                PositionList* list = NULL;
+                if (!HTGet(table, token, (void**)&list)) {
+                    list = createPositionList();
+                    HTPut(table, _strdup(token), list);
+                }
+                addPosition(list, position, lineNumber);
+            }
+            position += strlen(token) + 1;  // +1 por espacio
+            token = strtok(NULL, " \t\n\r");
+        }
+        lineNumber++;  // Incrementar el número de línea
+    }
+
+    fclose(f);
 }
-
-/*programa de prueba, implemente su codigo del proyecto 3 aqui*/
 
 int main(int argc, char** argv) {
+    if (argc < 2) {
+        printf("Se requiere el nombre del archivo del libro como argumento.\n");
+        return EXIT_FAILURE;
+    }
 
-	/*ejemplo de uso*/
-	HashTable d = HTCreate();
-	int v1 = 0;
-	/*meter cualquier verdura*/
-	HTPut(d, "papa", (void*)3000);
-	HTPut(d, "cebolla", (void*)4000);
-	HTPut(d, "perejil", (void*)500);
-	/*sacar cualquier verdura*/
-	HTGet(d, "papa", (void**)&v1);
-	printf("papa %d", v1);
-	//CONFIRM_RETURN(1 == 0);
-	HTDestroy(d);
-	system("PAUSE");
+    const char* filename = argv[1];
 
-	return (EXIT_SUCCESS);
+    // Crear la tabla hash
+    HashTable table = HTCreate();
+
+    // Aquí deberías cargar el libro y construir el índice de palabras
+    printf("Cargando el libro y creando el indice...\n");
+    indexFile(table, filename);
+
+    // Interfaz de búsqueda
+    char query[256];
+    while (1) {
+        printf("\nIngrese una consulta (o 'salir' para terminar): ");
+        fgets(query, sizeof(query), stdin);
+
+        query[strcspn(query, "\n")] = '\0';  // Eliminar salto de línea
+
+        if (strcmp(query, "salir") == 0) {
+            break;
+        }
+
+        searchPhrase(table, filename, query);
+    }
+
+    // Liberar recursos
+    HTDestroy(table);
+    printf("\nFin del programa.\n");
+    return EXIT_SUCCESS;
 }
-

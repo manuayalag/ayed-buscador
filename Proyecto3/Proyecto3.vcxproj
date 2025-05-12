@@ -129,10 +129,19 @@
   <ItemGroup>
     <ClInclude Include="boolean.h" />
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="PositionList.h" />
+    <ClInclude Include="Pq.h" />
+    <ClInclude Include="search.h" />
+    <ClInclude Include="SearchResult.h" />
+    <ClInclude Include="StopWords.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HashTable.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="PositionList.c" />
+    <ClCompile Include="Pq.c" />
+    <ClCompile Include="search.c" />
+    <ClCompile Include="StopWords.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

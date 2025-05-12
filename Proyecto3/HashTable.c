@@ -1,23 +1,18 @@
-#include <stdlib.h>
 #include "HashTable.h"
+#include <stdlib.h>
+#include <string.h>
+#define INITIAL_CAPACITY 1009
 
+#define LOAD_FACTOR_MAX 0.7
+#define DELETED (char*)-1  // Usamos una dirección de memoria inválida o un valor especial
 
 /* Crea un HashTable, devuelve el puntero a la estructura creada*/
 HashTable HTCreate() {
-	/*AGREGUE SU CODIGO AQUI*/
-	HashTable ht = (HashTable)malloc(sizeof(_HashTable));
-	if (ht == NULL) {
-		return NULL;
-	}
-	ht->arr = (Celda**)malloc(sizeof(Celda*) * 10); // Inicializa el arreglo de celdas
-	if (ht->arr == NULL) {
-		free(ht);
-		return NULL;
-	}
-	ht->tam = 0; // Inicializa el tamaño
-	ht->cap = 10; // Inicializa la capacidad
-
-	return ht;
+	HashTable tabla = malloc(sizeof(_HashTable));
+	tabla->cap = INITIAL_CAPACITY;
+	tabla->tam = 0;
+	tabla->arr = calloc(tabla->cap, sizeof(Nodo*)); // inicializa a NULL
+	return tabla;
 }
 
 /**
@@ -51,19 +46,23 @@ long _stringLong(char* clave) {
 
 	*/
 	long resultado = 0l;
-	int i, x;
-	int tam = strlen(clave);
-	int exp = 0;
+	int i, tam = strlen(clave);
+	long exp = 1; // Inicializa la exponenciación a 27^0 = 1
 
-	for (i = 0; i < tam; i++) {
+	for (i = tam - 1; i >= 0; i--) {  // Recorremos de derecha a izquierda
 		if (clave[i] >= 'A' && clave[i] <= 'Z') {
-			resultado += (clave[i] - 65) * pow(27, exp);
+			resultado += (clave[i] - 'A') * exp;
 		}
 		else if (clave[i] >= '0' && clave[i] <= '9') {
-			resultado += (clave[i] - 48) * pow(27, exp);
+			resultado += (clave[i] - '0') * exp;
 		}
-		exp++;
+		// Si hay letras minúsculas, convertirlas a mayúsculas
+		else if (clave[i] >= 'a' && clave[i] <= 'z') {
+			resultado += (clave[i] - 'a') * exp;
+		}
+		exp *= 27;  // Sumar la siguiente potencia de 27
 	}
+
 	return resultado;
 }
 
@@ -75,8 +74,13 @@ aplicar la formula:
 hash(x,i) = ((stringInt(x) mod CAP) + i^2) mod CAP
 */
 
-int _hash(char* clave, int i, int cap) {
-	return ((_stringLong(clave) % cap + i*i) % cap);
+
+int hash(const char* clave, int cap) {
+	unsigned int h = 0;
+	while (*clave) {
+		h = (h * 31) + (unsigned char)(*clave++);
+	}
+	return h % cap;
 }
 
 
@@ -84,80 +88,100 @@ int _hash(char* clave, int i, int cap) {
 
 /* Agrega el valor con la clave dada en el hash table, en el caso de repetir la clave se sobreescriben los datos
 Devuelve TRUE si tuvo exito, sino FALSE*/
-BOOLEAN HTPut(HashTable p, char* clave, void* valor) {
-	/*AGREGUE SU CODIGO AQUI*/
-	if (p == NULL || clave == NULL || valor == NULL) {
-		return FALSE;
-	}
-	for (int i = 0; i < p->cap; i++) {
-		int index = _hash(clave, i, p->cap);
-		
-		if (p->arr[index] == NULL) {
-			//Crear nueva celda si no existe
-			p->arr[index] = (Celda*)malloc(sizeof(Celda));
-			if (p->arr[index] == NULL) {
-				return FALSE;
-			}
-			p->arr[index]->clave = strdup(clave);
-			p->arr[index]->valor = valor;
-			p->tam++;
+BOOLEAN HTPut(HashTable tabla, char* clave, void* valor) {
+	unsigned int idx = hash(clave, tabla->cap);
+	Nodo* nodo = tabla->arr[idx];
+
+	while (nodo) {
+		if (strcmp(nodo->clave, clave) == 0) {
+			nodo->valor = valor; // sobreescribe
 			return TRUE;
 		}
-		//Si la clave ya existe, actualizar el valor
-		else if (strcmp(p->arr[index]->clave, clave) == 0 && p->arr[index]->valor != NULL) {
-			free(p->arr[index]->valor);
-			p->arr[index]->valor = valor;
-			return TRUE;
-		}
+		nodo = nodo->sig;
 	}
-	//Tabla llena o colisiones sin resolver
-	return FALSE;
+
+	// no encontrado, insertar al inicio
+	Nodo* nuevo = malloc(sizeof(Nodo));
+	nuevo->clave = _strdup(clave); // copia la clave
+	nuevo->valor = valor;
+	nuevo->sig = tabla->arr[idx];
+	tabla->arr[idx] = nuevo;
+	tabla->tam++;
+	return TRUE;
 }
+
 
 /* Obtiene el valor asociado a la clave dentro del HashTable y lo pasa por referencia a retval
 Devuelve TRUE si tuvo exito, sino FALSE*/
-BOOLEAN HTGet(HashTable p, char* clave, void** retval) {
-	/*AGREGUE SU CODIGO AQUI*/
-	if (p == NULL || clave == NULL || retval == NULL) {
-		return FALSE;
-	}
-	for (int i = 0; i < p->cap; i++) {
-		int index = _hash(clave, i, p->cap);
-
-		if (p->arr[index] == NULL) {
-			return FALSE;					// No se encontró la clave
+BOOLEAN HTGet(HashTable tabla, char* clave, void** retval) {
+	unsigned int idx = hash(clave, tabla->cap);
+	Nodo* nodo = tabla->arr[idx];
+	while (nodo) {
+		if (strcmp(nodo->clave, clave) == 0) {
+			*retval = nodo->valor;
+			return TRUE;
 		}
-		//Si las claves coninciden
-		if (strcmp(p->arr[index]->clave, clave) == 0) {
-			*retval = p->arr[index]->valor; // Asignar el valor encontrado
-			return TRUE;					// Se encontró la clave
-		}
+		nodo = nodo->sig;
 	}
-	//No se encontró la clave
 	return FALSE;
 }
+
 
 /* Remueve el valor asociado a la clave pasada
 Devuelve TRUE si tuvo exito, sino FALSE*/
-BOOLEAN HTRemove(HashTable p, char* clave) {
-	/*AGREGUE SU CODIGO AQUI*/
+BOOLEAN HTRemove(HashTable tabla, char* clave) {
+	unsigned int idx = hash(clave, tabla->cap);
+	Nodo* nodo = tabla->arr[idx];
+	Nodo* prev = NULL;
+
+	while (nodo) {
+		if (strcmp(nodo->clave, clave) == 0) {
+			if (prev) prev->sig = nodo->sig;
+			else tabla->arr[idx] = nodo->sig;
+			free(nodo->clave);
+			free(nodo);
+			tabla->tam--;
+			return TRUE;
+		}
+		prev = nodo;
+		nodo = nodo->sig;
+	}
 	return FALSE;
 }
+
 
 /* Devuelve TRUE si el HashTable contiene la clave*/
-BOOLEAN HTContains(HashTable p, char* clave) {
-	/*AGREGUE SU CODIGO AQUI*/
-	return FALSE;
+BOOLEAN HTContains(HashTable tabla, char* clave) {
+	void* dummy;
+	return HTGet(tabla, clave, &dummy);
 }
 
+
 /* Devuelve la cantidad de elementos (tamanho) cargados en el HashTable*/
-BOOLEAN HTSize(HashTable p) {
-	/*AGREGUE SU CODIGO AQUI*/
-	return FALSE;
+int HTSize(HashTable tabla) {
+	return tabla->tam;
 }
 
 /* Destruye la estructura*/
-BOOLEAN HTDestroy(HashTable p) {
-	/*AGREGUE SU CODIGO AQUI*/
-	return FALSE;
+BOOLEAN HTDestroy(HashTable tabla) {
+	for (int i = 0; i < tabla->cap; i++) {
+		Nodo* nodo = tabla->arr[i];
+		while (nodo) {
+			Nodo* temp = nodo;
+			nodo = nodo->sig;
+			free(temp->clave);
+			free(temp);
+		}
+	}
+	free(tabla->arr);
+	free(tabla);
+	return TRUE;
+}
+
+void printTable(HashTable p) {
+	for (int i = 0; i < p->cap; i++) {
+		if (p->arr[i] != NULL) {
+			printf("Celda[%d]: clave = %s, valor = %p\n", i, p->arr[i]->clave, p->arr[i]->valor);
+		}
+	}
 }

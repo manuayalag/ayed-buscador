@@ -21,12 +21,39 @@
     <ClInclude Include="HashTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StopWords.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="search.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pq.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HashTable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWords.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionList.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="search.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pq.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

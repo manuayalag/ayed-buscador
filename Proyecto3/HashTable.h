@@ -3,22 +3,29 @@
 #include "boolean.h"
 /*
  Copyright (c) 2017. Universidad Nacional de Itapua.
- 
- En general no deberias tener que modificar este archivo a menos que el 
+
+ En general no deberias tener que modificar este archivo a menos que el
  profesor se haya equivocado!
- 
+
 */
 /*Implementacion de una tabla hash con arreglo dinamico*/
+typedef struct _nodo {
+	char* clave;
+	void* valor;
+	struct _nodo* sig;
+} Nodo;
+
 typedef struct _celda {
 	void* valor;
 	char* clave;
 }Celda;
 
-typedef struct __HashTable{
-	Celda** arr; /*arreglo de void*  */
-	int tam;
-	int cap;
-}_HashTable;
+typedef struct __HashTable {
+	Nodo** arr; // arreglo de listas
+	int tam;    // cantidad de elementos actuales
+	int cap;    // capacidad (tamaño del arreglo)
+} _HashTable;
+
 
 typedef _HashTable* HashTable;
 
@@ -41,9 +48,8 @@ BOOLEAN HTRemove(HashTable p, char* clave);
 BOOLEAN HTContains(HashTable p, char* clave);
 
 /* Devuelve la cantidad de elementos (tamanho) cargados en el HashTable*/
-BOOLEAN HTSize(HashTable p);
-
-/* Destruye la estructura*/
+int HTSize(HashTable p);
+/* Devuelve la capacidad (tamanho) del HashTable*/
 BOOLEAN HTDestroy(HashTable p);
 
 #endif
