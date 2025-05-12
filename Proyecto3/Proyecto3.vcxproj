@@ -132,7 +132,6 @@
     <ClInclude Include="PositionList.h" />
     <ClInclude Include="Pq.h" />
     <ClInclude Include="search.h" />
-    <ClInclude Include="SearchResult.h" />
     <ClInclude Include="StopWords.h" />
   </ItemGroup>
   <ItemGroup>

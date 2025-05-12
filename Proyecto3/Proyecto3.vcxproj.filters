@@ -33,9 +33,6 @@
     <ClInclude Include="Pq.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SearchResult.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HashTable.c">

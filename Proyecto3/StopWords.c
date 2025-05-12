@@ -10,11 +10,11 @@ const char* stopwords[] = {
     NULL // Fin de lista
 };
 
-bool isStopWord(const char* word) {
+BOOLEAN isStopWord(const char* word) {
     for (int i = 0; stopwords[i] != NULL; i++) {
-        if (strcmp(stopwords[i], word) == 0) return true;
+        if (strcmp(stopwords[i], word) == 0) return TRUE;
     }
-    return false;
+    return FALSE;
 }
 
 void cleanWord(char* word) {

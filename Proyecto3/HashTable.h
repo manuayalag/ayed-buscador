@@ -9,21 +9,16 @@
 
 */
 /*Implementacion de una tabla hash con arreglo dinamico*/
-typedef struct _nodo {
-	char* clave;
-	void* valor;
-	struct _nodo* sig;
-} Nodo;
-
 typedef struct _celda {
-	void* valor;
 	char* clave;
-}Celda;
+	void* valor;
+	struct _celda* sig;
+} Celda;
 
 typedef struct __HashTable {
-	Nodo** arr; // arreglo de listas
+	Celda** arr; // arreglo de listas
 	int tam;    // cantidad de elementos actuales
-	int cap;    // capacidad (tamaño del arreglo)
+	int cap;    // capacidad (tama?o del arreglo)
 } _HashTable;
 
 

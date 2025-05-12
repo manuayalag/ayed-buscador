@@ -4,14 +4,14 @@
 #define INITIAL_CAPACITY 1009
 
 #define LOAD_FACTOR_MAX 0.7
-#define DELETED (char*)-1  // Usamos una dirección de memoria inválida o un valor especial
+#define DELETED (char*)-1  // Usamos una direcci?n de memoria inv?lida o un valor especial
 
 /* Crea un HashTable, devuelve el puntero a la estructura creada*/
 HashTable HTCreate() {
 	HashTable tabla = malloc(sizeof(_HashTable));
 	tabla->cap = INITIAL_CAPACITY;
 	tabla->tam = 0;
-	tabla->arr = calloc(tabla->cap, sizeof(Nodo*)); // inicializa a NULL
+	tabla->arr = calloc(tabla->cap, sizeof(Celda*)); // inicializa a NULL
 	return tabla;
 }
 
@@ -47,7 +47,7 @@ long _stringLong(char* clave) {
 	*/
 	long resultado = 0l;
 	int i, tam = strlen(clave);
-	long exp = 1; // Inicializa la exponenciación a 27^0 = 1
+	long exp = 1; // Inicializa la exponenciaci?n a 27^0 = 1
 
 	for (i = tam - 1; i >= 0; i--) {  // Recorremos de derecha a izquierda
 		if (clave[i] >= 'A' && clave[i] <= 'Z') {
@@ -56,7 +56,7 @@ long _stringLong(char* clave) {
 		else if (clave[i] >= '0' && clave[i] <= '9') {
 			resultado += (clave[i] - '0') * exp;
 		}
-		// Si hay letras minúsculas, convertirlas a mayúsculas
+		// Si hay letras min?sculas, convertirlas a may?sculas
 		else if (clave[i] >= 'a' && clave[i] <= 'z') {
 			resultado += (clave[i] - 'a') * exp;
 		}
@@ -90,18 +90,18 @@ int hash(const char* clave, int cap) {
 Devuelve TRUE si tuvo exito, sino FALSE*/
 BOOLEAN HTPut(HashTable tabla, char* clave, void* valor) {
 	unsigned int idx = hash(clave, tabla->cap);
-	Nodo* nodo = tabla->arr[idx];
+	Celda* celda = tabla->arr[idx];
 
-	while (nodo) {
-		if (strcmp(nodo->clave, clave) == 0) {
-			nodo->valor = valor; // sobreescribe
+	while (celda) {
+		if (strcmp(celda->clave, clave) == 0) {
+			celda->valor = valor; // sobreescribe
 			return TRUE;
 		}
-		nodo = nodo->sig;
+		celda = celda->sig;
 	}
 
 	// no encontrado, insertar al inicio
-	Nodo* nuevo = malloc(sizeof(Nodo));
+	Celda* nuevo = malloc(sizeof(Celda));
 	nuevo->clave = _strdup(clave); // copia la clave
 	nuevo->valor = valor;
 	nuevo->sig = tabla->arr[idx];
@@ -115,13 +115,13 @@ BOOLEAN HTPut(HashTable tabla, char* clave, void* valor) {
 Devuelve TRUE si tuvo exito, sino FALSE*/
 BOOLEAN HTGet(HashTable tabla, char* clave, void** retval) {
 	unsigned int idx = hash(clave, tabla->cap);
-	Nodo* nodo = tabla->arr[idx];
-	while (nodo) {
-		if (strcmp(nodo->clave, clave) == 0) {
-			*retval = nodo->valor;
+	Celda* celda = tabla->arr[idx];
+	while (celda) {
+		if (strcmp(celda->clave, clave) == 0) {
+			*retval = celda->valor;
 			return TRUE;
 		}
-		nodo = nodo->sig;
+		celda = celda->sig;
 	}
 	return FALSE;
 }
@@ -131,20 +131,20 @@ BOOLEAN HTGet(HashTable tabla, char* clave, void** retval) {
 Devuelve TRUE si tuvo exito, sino FALSE*/
 BOOLEAN HTRemove(HashTable tabla, char* clave) {
 	unsigned int idx = hash(clave, tabla->cap);
-	Nodo* nodo = tabla->arr[idx];
-	Nodo* prev = NULL;
+	Celda* celda = tabla->arr[idx];
+	Celda* prev = NULL;
 
-	while (nodo) {
-		if (strcmp(nodo->clave, clave) == 0) {
-			if (prev) prev->sig = nodo->sig;
-			else tabla->arr[idx] = nodo->sig;
-			free(nodo->clave);
-			free(nodo);
+	while (celda) {
+		if (strcmp(celda->clave, clave) == 0) {
+			if (prev) prev->sig = celda->sig;
+			else tabla->arr[idx] = celda->sig;
+			free(celda->clave);
+			free(celda);
 			tabla->tam--;
 			return TRUE;
 		}
-		prev = nodo;
-		nodo = nodo->sig;
+		prev = celda;
+		celda = celda->sig;
 	}
 	return FALSE;
 }
@@ -165,10 +165,10 @@ int HTSize(HashTable tabla) {
 /* Destruye la estructura*/
 BOOLEAN HTDestroy(HashTable tabla) {
 	for (int i = 0; i < tabla->cap; i++) {
-		Nodo* nodo = tabla->arr[i];
-		while (nodo) {
-			Nodo* temp = nodo;
-			nodo = nodo->sig;
+		Celda* celda = tabla->arr[i];
+		while (celda) {
+			Celda* temp = celda;
+			celda = celda->sig;
 			free(temp->clave);
 			free(temp);
 		}
